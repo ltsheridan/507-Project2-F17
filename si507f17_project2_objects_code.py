@@ -66,16 +66,24 @@ def sample_get_cache_itunes_data(search_term,media_term="all"):
 		return CACHE_DICTION[unique_ident]
 
 
+get_data=sample_get_cache_itunes_data("jack+johnson")
+print(type(get_data))
+print(get_data.keys())
+print(get_data["results"][0])
+
+
+
+
 ## [PROBLEM 1] [250 POINTS]
 print("\n***** PROBLEM 1 *****\n")
 
 
 class Media(object):
-	def __init__(self, title, author, itunes_URL, itunes_id):
-		self.title = title["results"][0]["trackName"]
-		self.author = author["results"][0]["artistName"]
-		self.itunes_URL=itunes_URL["results"][0]["trackViewUrl"]
-		self.itunes_id=itunes_id["results"][0]["kind"]
+	def __init__(self, media_dictionary):
+		self.title = title["trackName"]
+		self.author = author["artistName"]
+		self.itunes_URL=itunes_URL["trackViewUrl"]
+		self.itunes_id=itunes_id["kind"]
 
 	def get_itunes_Title(self):
 		return self.title
@@ -91,6 +99,7 @@ class Media(object):
 
 
 
+
 ## For problem 1, you should define a class Media, representing ANY piece of media you can find on iTunes search. 
 
 
@@ -100,6 +109,9 @@ class Media(object):
 ## - author
 ## - itunes_URL
 ## - itunes_id (e.g. the value of the track ID, whatever the track is in the data... a movie, a song, etc)
+
+# print(repr(object_variable)) # __repr__
+# print(object_variable) # __str__
 
 ## The Media class should also have the following methods:
 ## - a special string method, that returns a string of the form 'TITLE by AUTHOR'

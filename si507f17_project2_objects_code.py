@@ -72,10 +72,10 @@ print("\n***** PROBLEM 1 *****\n")
 
 class Media(object):
 	def __init__(self, title, author, itunes_URL, itunes_id):
-		self.title = title["results"]["trackName"]
-		self.author = author["results"]["artistName"]
-		self.itunes_URL=itunes_URL["results"]["trackViewUrl"]
-		self.itunes_id=itunes_id["results"]["kind"]
+		self.title = title["results"][0]["trackName"]
+		self.author = author["results"][0]["artistName"]
+		self.itunes_URL=itunes_URL["results"][0]["trackViewUrl"]
+		self.itunes_id=itunes_id["results"][0]["kind"]
 
 	def get_itunes_Title(self):
 		return self.title
@@ -86,12 +86,10 @@ class Media(object):
 	def get_itunes_URL(self):
 		return self.itunes_URL
 
-
 	def get_ItunesSummary(self):
-		# print str(self.get_itunes_Title()) + "by" + str(self.get_itunes_Author())
-		return "The title of this data is {} and {} is the author".format(self.title, self.author)
+		return "{} by {}".format(self.title, self.author)
 
-print get_ItunesSummary()
+
 
 ## For problem 1, you should define a class Media, representing ANY piece of media you can find on iTunes search. 
 

@@ -34,22 +34,22 @@ print("\n*** *** PROJECT 2 *** ***\n")
 ## You may want to try them out and see what data gets returned, in order to complete the problems in this project.
 
 def params_unique_combination(baseurl, params_d, private_keys=["api_key"]):
-    alphabetized_keys = sorted(params_d.keys())
-    res = []
-    for k in alphabetized_keys:
-        if k not in private_keys:
-            res.append("{}-{}".format(k, params_d[k]))
-    return baseurl + "_".join(res)
+	alphabetized_keys = sorted(params_d.keys())
+	res = []
+	for k in alphabetized_keys:
+		if k not in private_keys:
+			res.append("{}-{}".format(k, params_d[k]))
+	return baseurl + "_".join(res)
 
 def sample_get_cache_itunes_data(search_term,media_term="all"):
 	CACHE_FNAME = 'cache_file_name.json'
 	try:
-	    cache_file = open(CACHE_FNAME, 'r')
-	    cache_contents = cache_file.read()
-	    CACHE_DICTION = json.loads(cache_contents)
-	    cache_file.close()
+		cache_file = open(CACHE_FNAME, 'r')
+		cache_contents = cache_file.read()
+		CACHE_DICTION = json.loads(cache_contents)
+		cache_file.close()
 	except:
-	    CACHE_DICTION = {}
+		CACHE_DICTION = {}
 	baseurl = "https://itunes.apple.com/search"
 	params = {}
 	params["media"] = media_term
@@ -71,22 +71,28 @@ print("\n***** PROBLEM 1 *****\n")
 
 
 class Media(object):
-    def __init__(self, media, title, itunes_URL):
-        self.title = title
-        self.author = author
-        self.itunes_URL=itunes_URL
+	def __init__(self, title, author, itunes_URL, itunes_id):
+		self.title = title["results"]["trackName"]
+		self.author = author["results"]["artistName"]
+		self.itunes_URL=itunes_URL["results"]["trackViewUrl"]
+		self.itunes_id=itunes_id["results"]["kind"]
 
-    def get_itunes_Title(self):
-        return self.title
+	def get_itunes_Title(self):
+		return self.title
 
-    def get_itunes_Author(self):
-    	return self.author
+	def get_itunes_Author(self):
+		return self.author
+
+	def get_itunes_URL(self):
+		return self.itunes_URL
 
 
-	def printItunesSummary(self):
-		print self.get_itunes_Title    	    
+	def get_ItunesSummary(self):
+		# print str(self.get_itunes_Title()) + "by" + str(self.get_itunes_Author())
+		return "The title of this data is {} and {} is the author".format(self.title, self.author)
 
-      
+print get_ItunesSummary()
+
 ## For problem 1, you should define a class Media, representing ANY piece of media you can find on iTunes search. 
 
 

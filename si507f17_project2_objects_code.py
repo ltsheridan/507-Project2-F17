@@ -70,6 +70,23 @@ def sample_get_cache_itunes_data(search_term,media_term="all"):
 print("\n***** PROBLEM 1 *****\n")
 
 
+class Media(object):
+    def __init__(self, media, title, itunes_URL):
+        self.title = title
+        self.author = author
+        self.itunes_URL=itunes_URL
+
+    def get_itunes_Title(self):
+        return self.title
+
+    def get_itunes_Author(self):
+    	return self.author
+
+
+	def printItunesSummary(self):
+		print self.get_itunes_Title    	    
+
+      
 ## For problem 1, you should define a class Media, representing ANY piece of media you can find on iTunes search. 
 
 

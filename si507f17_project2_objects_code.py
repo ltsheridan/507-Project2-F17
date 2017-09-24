@@ -94,10 +94,17 @@ class Media(object):
 	def get_itunes_URL(self):
 		return self.itunes_URL
 
-	def get_ItunesSummary(self):
+	def __str__(self):
 		return "{} by {}".format(self.title, self.author)
 
+	def __repr__(self):
+		return "ITUNES MEDIA:"
 
+	def __len__(self):
+		return 0
+			
+	def __contains__(self, x):
+		return 
 
 
 ## For problem 1, you should define a class Media, representing ANY piece of media you can find on iTunes search. 
@@ -110,7 +117,7 @@ class Media(object):
 ## - itunes_URL
 ## - itunes_id (e.g. the value of the track ID, whatever the track is in the data... a movie, a song, etc)
 
-# print(repr(object_variable)) # __repr__
+print(repr(Media)) # __repr__
 # print(object_variable) # __str__
 
 ## The Media class should also have the following methods:
@@ -124,6 +131,22 @@ class Media(object):
 ## [PROBLEM 2] [400 POINTS]
 print("\n***** PROBLEM 2 *****\n")
 ## In 2 parts.
+
+class Song(Media):
+	def __init__(self, song_dictionary):
+		self.album = album["collectionName"]
+		self.track_number = track_number["trackNumber"]
+		self.genre=genre["primaryGenreName"]
+
+
+	def get_itunes_Album(self):
+		return self.album
+
+	def get_itunes_Track_Number(self):
+		return self.track_number
+
+	def get_itunes_Genre(self):
+		return self.genre	
 
 ## Now, you'll define 2 more different classes, each of which *inherit from* class Media:
 ## class Song
@@ -142,7 +165,21 @@ print("\n***** PROBLEM 2 *****\n")
 
 ## Should have the len method overridden to return the number of seconds in the song. (HINT: The data supplies number of milliseconds in the song... How can you access that data and convert it to seconds?)
 
+class Movie(Media):
+	def __init__(self, song_dictionary):
+		self.rating = rating[]
+		self.movie_genre = movie_genre[]
+		self.description=description[]
 
+
+	def get_itunes_Album(self):
+		return self.album
+
+	def get_itunes_Track_Number(self):
+		return self.track_number
+
+	def get_itunes_Genre(self):
+		return self.genre
 
 ### class Movie:
 
@@ -172,6 +209,8 @@ media_samples = sample_get_cache_itunes_data("love")["results"]
 song_samples = sample_get_cache_itunes_data("love","music")["results"]
 
 movie_samples = sample_get_cache_itunes_data("love","movie")["results"]
+
+# print(type(media_samples))
 
 
 ## You may want to do some investigation on these variables to make sure you understand correctly what type of value they hold, what's in each one!

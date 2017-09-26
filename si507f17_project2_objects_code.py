@@ -80,10 +80,10 @@ print("\n***** PROBLEM 1 *****\n")
 
 class Media(object):
 	def __init__(self, media_dictionary):
-		self.title = title["trackName"]
-		self.author = author["artistName"]
-		self.itunes_URL=itunes_URL["trackViewUrl"]
-		self.itunes_id=itunes_id["kind"]
+		self.title = media_dictionary["trackName"]
+		self.author = media_dictionary["artistName"]
+		self.itunes_URL= media_dictionary["trackViewUrl"]
+		self.itunes_id= media_dictionary["trackId"]
 
 	def get_itunes_Title(self):
 		return self.title
@@ -98,13 +98,13 @@ class Media(object):
 		return "{} by {}".format(self.title, self.author)
 
 	def __repr__(self):
-		return "ITUNES MEDIA:"
+		return "ITUNES MEDIA: {}".format(self.itunes_id)
 
 	def __len__(self):
 		return 0
 			
 	def __contains__(self, x):
-		return 
+		return x in self.title
 
 
 ## For problem 1, you should define a class Media, representing ANY piece of media you can find on iTunes search. 
@@ -117,8 +117,6 @@ class Media(object):
 ## - itunes_URL
 ## - itunes_id (e.g. the value of the track ID, whatever the track is in the data... a movie, a song, etc)
 
-print(repr(Media)) # __repr__
-# print(object_variable) # __str__
 
 ## The Media class should also have the following methods:
 ## - a special string method, that returns a string of the form 'TITLE by AUTHOR'
@@ -134,9 +132,10 @@ print("\n***** PROBLEM 2 *****\n")
 
 class Song(Media):
 	def __init__(self, song_dictionary):
-		self.album = album["collectionName"]
-		self.track_number = track_number["trackNumber"]
-		self.genre=genre["primaryGenreName"]
+		Media.__init__(self, song_dictionary)
+		self.album = song_dictionary["collectionName"]
+		self.track_number = song_dictionary["trackNumber"]
+		self.genre= song_dictionary["primaryGenreName"]
 
 
 	def get_itunes_Album(self):
@@ -167,9 +166,9 @@ class Song(Media):
 
 class Movie(Media):
 	def __init__(self, song_dictionary):
-		self.rating = rating[]
-		self.movie_genre = movie_genre[]
-		self.description=description[]
+		self.rating = song_dictionary["ratingIndex"]
+		self.movie_genre = song_dictionary["genreIndex"]
+		self.description= song_dictionary["descriptionTerm"]
 
 
 	def get_itunes_Album(self):

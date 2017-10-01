@@ -172,10 +172,13 @@ class Movie(Media):
 	def __init__(self, movie_dictionary):
 		Media.__init__(self, movie_dictionary)
 		self.rating = movie_dictionary["contentAdvisoryRating"]
-		self.movie_genre = movie_dictionary["primaryGenreName"]
-		self.milliseconds = movie_dictionary["trackTimeMillis"]
+		self.genre = movie_dictionary["primaryGenreName"]
 		try:
-			self.description = movie_dictionary["shortDescription"]
+			self.milliseconds = movie_dictionary["trackTimeMillis"]
+		except KeyError:
+			self.milliseconds = 0
+		try:
+			self.description = movie_dictionary["longDescription"].encode('utf-8')
 		except:
 			self.description = None
 
@@ -183,7 +186,7 @@ class Movie(Media):
 		return self.rating
 
 	def get_movie_genre(self):
-		return self.movie_genre
+		return self.genre
 
 	def get_movie_description(self):
 		return self.description
@@ -242,21 +245,40 @@ movie_samples = sample_get_cache_itunes_data("love","movie")["results"]
 
 media_list=[]
 for item in media_samples:
-	media_list.append(item)
+	media_object=Media(item)
+	media_list.append(media_object)
 
 song_list=[]
 for item in song_samples:
-	song_list.append(item)
+	song_object=Song(item)
+	song_list.append(song_object)
 
 movie_list=[]
 for item in movie_samples:
-	movie_list.append(item)
-
-
+	movie_object=Movie(item)
+	movie_list.append(movie_object)
 
 
 ## [PROBLEM 4] [200 POINTS]
 print("\n***** PROBLEM 4 *****\n")
+
+movies = open("movies.csv","w")
+movies.write("title,artist,id,url,length\n")
+for movie in movie_list:
+	movies.write('"{}",{},{},{},{}\n'.format(movie.title,movie.author,movie.itunes_id,movie.itunes_URL,len(movie)))
+movies.close()
+
+songs = open("songs.csv","w")
+songs.write("title,artist,id,url,length\n")
+for song in song_list:
+    songs.write('"{}",{},{},{},{}\n'.format(song.title,song.author,song.itunes_id,song.itunes_URL,len(song)))
+songs.close()
+
+media_file = open("media.csv","w")
+media_file.write("title,artist,id,url,length\n")
+for media in media_list:
+	media_file.write('"{}",{},{},{},{}\n'.format(media.title,media.author,media.itunes_id,media.itunes_URL,len(media)))
+media_file.close()
 
 ## Finally, write 3 CSV files:
 # - movies.csv
